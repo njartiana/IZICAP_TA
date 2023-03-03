@@ -1,0 +1,6 @@
+datasources:b753492abc49ead8dbd5b8684f71eeceb544fe46
+commandlineoptions:97d170e1550eee4afc0af065b78cda302a97674c
+suitesfrom:no-suites-from-option
+file:a0055e4c96234549a14fcee128ab7a6529153802
+--suite TestCases.ManageTokens.TokenCreationTest
+--suite TestCases.ManageUsers.UserCreationTest
