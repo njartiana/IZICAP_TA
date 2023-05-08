@@ -1,0 +1,35 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Checkout TA project') {
+            steps {
+                checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: '3471db2d-7e17-4fd4-ae9b-976cba09b868', url: 'https://github.com/njartiana/IZICAP_TA']]])
+            }
+        }
+
+        stage('Run test'){
+            steps{
+                script{
+                    sh 'robot --outputdir Results TestCases/ManageTokens/TokenCreationTest.robot TestCases/ManageUsers/UserCreationTest.robot'
+                }
+            }
+        }
+    }
+    
+    post {
+        always {
+          step([$class: 'RobotPublisher',
+                disableArchiveOutput: false,
+                logFileName: 'log.html',
+                onlyCritical: true,
+                otherFiles: '*.png',
+                outputFileName: 'output.xml',
+                outputPath: 'Results',
+                passThreshold: 90,
+                reportFileName: 'report.html',
+                unstableThreshold: 100
+            ])
+        }
+   }
+}
